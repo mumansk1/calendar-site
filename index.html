@@ -1,677 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>My Schedule | Professional Site with Google Calendar</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-    :root {
-      --bg: #0f172a;
-      --bg-elevated: #020617;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.12);
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border-subtle: #1f2937;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
-      --radius-lg: 16px;
-      --radius-full: 999px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      padding: 32px 16px;
-    }
-
-    .shell {
-      width: 100%;
-      max-width: 1120px;
-      background: radial-gradient(circle at top left, #0b1120, #020617);
-      border-radius: 28px;
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
-      overflow: hidden;
-    }
-
-    @media (max-width: 900px) {
-      body {
-        padding: 16px 10px;
-      }
-      .shell {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    /* Left Panel */
-    .sidebar {
-      padding: 30px 30px 26px;
-      border-right: 1px solid rgba(15, 23, 42, 0.85);
-      background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 60%),
-        linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    @media (max-width: 900px) {
-      .sidebar {
-        border-right: none;
-        border-bottom: 1px solid rgba(15, 23, 42, 0.75);
-      }
-    }
-
-    .brand-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .brand-mark {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 16px;
-      background: radial-gradient(circle at 30% 0, #4ade80 0, #22c55e 28%, #15803d 80%);
-      position: relative;
-      box-shadow:
-        0 0 0 1px rgba(22, 163, 74, 0.3),
-        0 18px 45px rgba(22, 163, 74, 0.35);
-    }
-
-    .brand-logo::before,
-    .brand-logo::after {
-      content: "";
-      position: absolute;
-      border-radius: 999px;
-      border: 1.3px solid rgba(15, 23, 42, 0.7);
-    }
-
-    .brand-logo::before {
-      inset: 7px 6px 6px 6px;
-    }
-    .brand-logo::after {
-      inset: 12px 10px;
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .brand-title {
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      font-size: 1rem;
-    }
-
-    .brand-subtitle {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .badge {
-      padding: 6px 12px 6px 6px;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.28), transparent 65%);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
-      color: #e0f2fe;
-    }
-
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
-    }
-
-    .hero-text-block {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 4px;
-    }
-
-    .hero-title {
-      font-size: 1.9rem;
-      line-height: 1.16;
-      letter-spacing: 0.01em;
-    }
-
-    .hero-highlight {
-      background: linear-gradient(120deg, #38bdf8, #a855f7, #f472b6);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-subtitle {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      max-width: 320px;
-    }
-
-    .action-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .btn-primary {
-      padding: 10px 18px;
-      border-radius: var(--radius-full);
-      border: none;
-      outline: none;
-      cursor: pointer;
-      font-size: 0.86rem;
-      font-weight: 500;
-      color: #0b1120;
-      background: linear-gradient(135deg, #38bdf8, #22c55e);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow:
-        0 14px 35px rgba(56, 189, 248, 0.35),
-        0 0 0 1px rgba(15, 23, 42, 0.45);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
-      box-shadow:
-        0 20px 40px rgba(56, 189, 248, 0.4),
-        0 0 0 1px rgba(15, 23, 42, 0.6);
-    }
-
-    .btn-secondary {
-      padding: 9px 16px;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.72);
-      outline: none;
-      cursor: pointer;
-      font-size: 0.82rem;
-      color: var(--text-main);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      backdrop-filter: blur(16px);
-      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(15, 23, 42, 0.95);
-      border-color: rgba(156, 163, 175, 0.9);
-      transform: translateY(-1px);
-    }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(
-        90deg,
-        rgba(15, 23, 42, 0),
-        rgba(148, 163, 184, 0.4),
-        rgba(15, 23, 42, 0)
-      );
-      margin: 8px 0 4px;
-    }
-
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 0.76rem;
-      color: var(--text-muted);
-    }
-
-    .meta-pill {
-      border-radius: var(--radius-full);
-      padding: 6px 10px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .meta-pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #38bdf8;
-    }
-
-    .small-label {
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-size: 0.72rem;
-      color: #6b7280;
-      margin-top: 6px;
-    }
-
-    .bullet-list {
-      margin-top: 4px;
-      list-style: none;
-      display: grid;
-      gap: 6px;
-      font-size: 0.8rem;
-      color: #e5e7eb;
-    }
-
-    .bullet-list li::before {
-      content: "•";
-      color: #38bdf8;
-      margin-right: 6px;
-    }
-
-    /* Right Panel (Calendar) */
-    .calendar-panel {
-      background: radial-gradient(circle at 12% 0, rgba(56, 189, 248, 0.16), transparent 60%),
-        linear-gradient(145deg, #020617, #020617);
-      padding: 22px 22px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .calendar-panel::before {
-      content: "";
-      position: absolute;
-      inset: 18% -40%;
-      background: radial-gradient(circle, rgba(30, 64, 175, 0.2), transparent 60%);
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    .calendar-inner {
-      position: relative;
-      z-index: 1;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.88), #020617);
-      border-radius: 20px;
-      border: 1px solid rgba(15, 23, 42, 0.9);
-      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.9);
-      padding: 14px 14px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .calendar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      padding: 2px 2px 3px 4px;
-    }
-
-    .calendar-title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .calendar-title {
-      font-size: 0.92rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .calendar-title span.label-pill {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(22, 163, 74, 0.16);
-      border: 1px solid rgba(22, 163, 74, 0.4);
-      color: #bbf7d0;
-    }
-
-    .calendar-subtitle {
-      font-size: 0.78rem;
-      color: #9ca3af;
-    }
-
-    .calendar-controls {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .calendar-chip {
-      font-size: 0.7rem;
-      padding: 5px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
-    }
-
-    .calendar-toggle-group {
-      display: inline-flex;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      overflow: hidden;
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .calendar-toggle {
-      padding: 4px 9px;
-      font-size: 0.72rem;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      background: transparent;
-      color: #9ca3af;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .calendar-toggle.active {
-      background: rgba(148, 163, 184, 0.14);
-      color: #e5e7eb;
-    }
-
-    .calendar-frame-wrap {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(31, 41, 55, 0.95);
-      background: #020617;
-      position: relative;
-      min-height: 420px;
-    }
-
-    @media (max-width: 900px) {
-      .calendar-panel {
-        padding: 18px 16px 16px;
-      }
-      .calendar-inner {
-        padding: 12px 10px 10px;
-      }
-      .calendar-frame-wrap {
-        min-height: 360px;
-      }
-    }
-
-    .calendar-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.86rem;
-      color: #6b7280;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
-      text-align: center;
-      padding: 16px;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .calendar-footer {
-      font-size: 0.72rem;
-      color: #9ca3af;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 0 2px;
-      flex-wrap: wrap;
-    }
-
-    .calendar-footer a {
-      color: #7dd3fc;
-      text-decoration: none;
-    }
-
-    .calendar-footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>My Schedule Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main class="shell">
-    <!-- LEFT: Intro / Branding -->
-    <section class="sidebar">
-      <div class="brand-row">
-        <div class="brand-mark">
-          <div class="brand-logo"></div>
-          <div class="brand-text">
-            <span class="brand-title">My Schedule Hub</span>
-            <span class="brand-subtitle">Calendar • Booking • Events</span>
-          </div>
-        </div>
-        <div class="badge">
-          <span class="badge-dot"></span>
-          <span>Real-time Google Calendar</span>
-        </div>
-      </div>
-
-      <div class="hero-text-block">
-        <h1 class="hero-title">
-          Plan, share, and
-          <span class="hero-highlight">stay on top of your time.</span>
-        </h1>
-        <p class="hero-subtitle">
-          A clean, professional scheduling space powered by your Google Calendar.
-          Embed it into your website or use it as a standalone booking hub.
-        </p>
-      </div>
-
-      <div class="action-row">
-        <button class="btn-primary" id="btnToday">
-          View today’s schedule
-          <span>↗</span>
-        </button>
-        <button class="btn-secondary" id="btnHowTo">
-          How to connect a different calendar
-        </button>
-      </div>
-
-      <div class="divider"></div>
-
-      <div>
-        <p class="small-label">Features</p>
-        <ul class="bullet-list">
-          <li>Live Google Calendar embed (no backend needed)</li>
-          <li>Responsive design for desktop, tablet, and mobile</li>
-          <li>Day, week, and month view toggles</li>
-        </ul>
-      </div>
-
-      <div>
-        <p class="small-label">Tips</p>
-        <div class="meta-row">
-          <span class="meta-pill">
-            <span class="meta-pill-dot"></span>
-            Make your calendar public in Google
-          </span>
-          <span class="meta-pill">
-            <span class="meta-pill-dot"></span>
-            Paste your own embed URL into the iframe
-          </span>
-        </div>
-      </div>
-    </section>
-
-    <!-- RIGHT: Google Calendar -->
-    <section class="calendar-panel">
-      <div class="calendar-inner">
-        <header class="calendar-header">
-          <div class="calendar-title-block">
-            <div class="calendar-title">
-              Integrated Google Calendar
-              <span class="label-pill">Demo</span>
+    <div class="shell">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <!-- Brand -->
+            <div class="brand-row">
+                <div class="brand-mark">
+                    <div class="brand-logo"></div>
+                    <div class="brand-text">
+                        <div class="brand-title">Schedule Hub</div>
+                        <div class="brand-subtitle">Calendar</div>
+                    </div>
+                </div>
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    Live
+                </div>
             </div>
-            <p class="calendar-subtitle">
-              Switch views and scroll within the calendar to see all events.
-            </p>
-          </div>
-          <div class="calendar-controls">
-            <span class="calendar-chip" id="timezoneChip">Timezone: local</span>
-            <div class="calendar-toggle-group" aria-label="Calendar view">
-              <button class="calendar-toggle active" data-view="month">Month</button>
-              <button class="calendar-toggle" data-view="week">Week</button>
-              <button class="calendar-toggle" data-view="agenda">Agenda</button>
+
+            <!-- Hero -->
+            <div class="hero-text-block">
+                <h1 class="hero-title">
+                    Your <span class="hero-highlight">Schedule</span> at a Glance
+                </h1>
+                <p class="hero-subtitle">
+                    Stay organized with your embedded Google Calendar. View events, manage your time, and never miss a beat.
+                </p>
             </div>
-          </div>
-        </header>
 
-        <div class="calendar-frame-wrap">
-          <!-- NOTE:
-            Replace src below with your own Google Calendar embed URL.
-            Instructions:
-              1. Open Google Calendar in your browser.
-              2. On the left, under "My calendars", hover the calendar you want, click "⋮" > "Settings and sharing".
-              3. Under "Access permissions for events", check "Make available to public" (or appropriate sharing).
-              4. Scroll down to "Integrate calendar" and copy the "Embed code".
-              5. Extract the `src="..."` URL and paste it into the iframe below.
-          -->
-          <iframe
-            id="calendarFrame"
-            src="https://calendar.google.com/calendar/embed?src=c_188f9187a9e0887345e3a5212ada4ef1f1e5c232d154f1c48b5c231d9bc9c8d4%40group.calendar.google.com&ctz=America%2FNew_York&mode=MONTH"
-            style="border:0"
-            scrolling="no"
-          ></iframe>
+            <!-- Actions -->
+            <div class="action-row">
+                <button class="btn-primary" onclick="scrollToCalendar()">
+                    📅 View Calendar
+                </button>
+                <button class="btn-secondary" onclick="showInstructions()">
+                    ℹ️ How to Setup
+                </button>
+            </div>
 
-          <!-- Shown briefly before the iframe loads -->
-          <div class="calendar-placeholder" id="calendarPlaceholder">
-            Loading your calendar… If you don’t see anything, make sure your
-            Google Calendar is shared publicly and that you’re using a valid
-            embed URL.
-          </div>
-        </div>
+            <!-- Divider -->
+            <div class="divider"></div>
 
-        <footer class="calendar-footer">
-          <span>
-            Want to use your own calendar?
-            Edit this file and replace the
-            <code>src</code> of the iframe with your Google Calendar embed URL.
-          </span>
-          <span>
-            Powered by
-            <a href="https://calendar.google.com" target="_blank" rel="noreferrer">
-              Google Calendar
-            </a>
-          </span>
-        </footer>
-      </div>
-    </section>
-  </main>
+            <!-- Meta Info -->
+            <div class="meta-row">
+                <span class="meta-pill">
+                    <span class="meta-pill-dot"></span>
+                    Auto-sync
+                </span>
+                <span class="meta-pill">
+                    <span class="meta-pill-dot"></span>
+                    Responsive
+                </span>
+            </div>
 
-  <script>
-    // Simple enhancements: view toggles & "today" scroll helper.
-    (function () {
-      const frame = document.getElementById("calendarFrame");
-      const placeholder = document.getElementById("calendarPlaceholder");
-      const toggles = document.querySelectorAll(".calendar-toggle");
-      const btnToday = document.getElementById("btnToday");
-      const btnHowTo = document.getElementById("btnHowTo");
-      const timezoneChip = document.getElementById("timezoneChip");
+            <!-- Features -->
+            <div>
+                <div class="small-label">Features</div>
+                <ul class="bullet-list">
+                    <li>Real-time Google Calendar embed</li>
+                    <li>Week & Month view toggle</li>
+                    <li>Mobile-friendly design</li>
+                    <li>Easy customization</li>
+                </ul>
+            </div>
+        </aside>
 
-      // Remove placeholder when iframe loads
-      frame.addEventListener("load", () => {
-        if (placeholder) {
-          placeholder.style.opacity = "0";
-          placeholder.style.pointerEvents = "none";
-          setTimeout(() => placeholder.remove(), 300);
+        <!-- Right Panel: Calendar -->
+        <main class="calendar-panel">
+            <div class="calendar-inner">
+                <!-- Calendar Header -->
+                <div class="calendar-header">
+                    <div class="calendar-title-block">
+                        <div class="calendar-title">
+                            My Calendar
+                            <span class="label-pill">Google</span>
+                        </div>
+                        <div class="calendar-subtitle">Synced in real-time</div>
+                    </div>
+                    <div class="calendar-controls">
+                        <span class="calendar-chip">2025</span>
+                        <div class="calendar-toggle-group">
+                            <button class="calendar-toggle active" data-view="week">Week</button>
+                            <button class="calendar-toggle" data-view="month">Month</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calendar Frame -->
+                <div class="calendar-frame-wrap" id="calendarFrame">
+                    <div class="calendar-placeholder" id="calendarPlaceholder">
+                        <div>⚠️ Calendar not configured yet</div>
+                        <div style="font-size: 0.75rem; max-width: 280px; line-height: 1.5;">
+                            Click "How to Setup" to learn how to add your Google Calendar embed URL.
+                        </div>
+                    </div>
+                    <iframe id="calendarIframe" style="display: none;"></iframe>
+                </div>
+
+                <!-- Calendar Footer -->
+                <div class="calendar-footer">
+                    <span>Powered by <a href="https://calendar.google.com" target="_blank">Google Calendar</a></span>
+                    <span>Last synced: <code>Just now</code></span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // PASTE YOUR GOOGLE CALENDAR EMBED URL HERE:
+        const CALENDAR_EMBED_URL = '';
+
+        // Optional: Customize calendar appearance
+        const CALENDAR_CONFIG = {
+            showTitle: 0,
+            showNav: 1,
+            showDate: 1,
+            showPrint: 0,
+            showTabs: 0,
+            showCalendars: 0,
+            showTz: 0,
+            mode: 'WEEK',
+            height: 420,
+            wkst: 1,
+            bgcolor: '%23020617',
+            color: '%2338bdf8'
+        };
+
+        function buildCalendarUrl(baseUrl, config) {
+            if (!baseUrl) return '';
+            const url = new URL(baseUrl);
+            Object.entries(config).forEach(([key, value]) => {
+                url.searchParams.set(key, value);
+            });
+            return url.toString();
         }
-      });
 
-      // Set timezone label to browser's timezone
-      try {
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        timezoneChip.textContent = "Timezone: " + tz;
-      } catch (e) {
-        // ignore if not available
-      }
+        function initCalendar() {
+            const iframe = document.getElementById('calendarIframe');
+            const placeholder = document.getElementById('calendarPlaceholder');
 
-      // View mode toggles simply update the query string "mode"
-      toggles.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          toggles.forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
+            if (CALENDAR_EMBED_URL) {
+                const finalUrl = buildCalendarUrl(CALENDAR_EMBED_URL, CALENDAR_CONFIG);
+                iframe.src = finalUrl;
+                iframe.style.display = 'block';
+                placeholder.style.display = 'none';
+            } else {
+                console.warn('⚠️ Calendar embed URL not configured. Please set CALENDAR_EMBED_URL in the script.');
+            }
+        }
 
-          const view = btn.getAttribute("data-view") || "month";
-          const url = new URL(frame.src);
-          // Google Calendar supports mode=WEEK, MONTH, AGENDA (case-insensitive)
-          if (view === "week") url.searchParams.set("mode", "WEEK");
-          else if (view === "agenda") url.searchParams.set("mode", "AGENDA");
-          else url.searchParams.set("mode", "MONTH");
+        function switchCalendarView(mode) {
+            const iframe = document.getElementById('calendarIframe');
+            if (!CALENDAR_EMBED_URL) return;
 
-          frame.src = url.toString();
+            CALENDAR_CONFIG.mode = mode.toUpperCase();
+            const newUrl = buildCalendarUrl(CALENDAR_EMBED_URL, CALENDAR_CONFIG);
+            iframe.src = newUrl;
+
+            document.querySelectorAll('.calendar-toggle').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-view="${mode}"]`).classList.add('active');
+        }
+
+        function scrollToCalendar() {
+            document.querySelector('.calendar-panel').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function showInstructions() {
+            alert(`🗓 HOW TO ADD YOUR GOOGLE CALENDAR:
+
+1. Go to Google Calendar (calendar.google.com)
+2. Click the gear icon ⚙ → Settings
+3. Select your calendar from the left sidebar
+4. Scroll to "Integrate calendar"
+5. Copy the "Embed code" (it's an <iframe> tag)
+6. Extract the URL from src="..."
+7. Paste it into CALENDAR_EMBED_URL in this file's <script> section
+8. Save and refresh!
+
+Example URL format:
+https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID`);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCalendar();
+
+            document.querySelectorAll('.calendar-toggle').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const view = e.target.dataset.view;
+                    switchCalendarView(view);
+                });
+            });
         });
-      });
-
-      // Scroll to calendar on "View today’s schedule"
-      btnToday.addEventListener("click", () => {
-        const rect = frame.getBoundingClientRect();
-        const offset = window.scrollY + rect.top - 20;
-        window.scrollTo({ top: offset, behavior: "smooth" });
-      });
-
-      // Quick "How to" pop-up
-      btnHowTo.addEventListener("click", () => {
-        alert(
-          [
-            "To connect your own Google Calendar:",
-            "",
-            "1. Open Google Calendar in a browser.",
-            "2. On the left, under 'My calendars', hover your calendar, click the three dots (⋮), then 'Settings and sharing'.",
-            "3. Under 'Access permissions for events', enable the sharing level you need (e.g. make it public).",
-            "4. Scroll to 'Integrate calendar' and copy the 'Embed code'.",
-            "5. From that embed code, copy the URL from src=\"...\".",
-            "6. Paste that URL into the iframe's src attribute in this HTML file.",
-          ].join("\n")
-        );
-      });
-    })();
-  </script>
+    </script>
 </body>
 </html>

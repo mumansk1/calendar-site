@@ -1,0 +1,208 @@
+/* ============================================
+   Responsive Styles
+   ============================================ */
+
+/* Tablet and below */
+@media (max-width: 900px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.75);
+    padding: 24px 20px 22px;
+  }
+
+  .brand-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-subtitle {
+    max-width: 100%;
+  }
+
+  .calendar-panel {
+    padding: 18px 16px 16px;
+  }
+
+  .calendar-inner {
+    padding: 12px 10px 10px;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .calendar-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .calendar-frame-wrap {
+    min-height: 360px;
+  }
+
+  iframe {
+    min-height: 360px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  body {
+    padding: 12px 8px;
+  }
+
+  .sidebar {
+    padding: 20px 16px 18px;
+    gap: 20px;
+  }
+
+  .brand-title {
+    font-size: 0.95rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .badge {
+    font-size: 0.68rem;
+    padding: 5px 10px 5px 5px;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .action-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .meta-row {
+    flex-direction: column;
+  }
+
+  .meta-pill {
+    width: 100%;
+  }
+
+  .calendar-panel {
+    padding: 14px 12px 12px;
+  }
+
+  .calendar-inner {
+    padding: 10px 8px 8px;
+  }
+
+  .calendar-title {
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  .calendar-subtitle {
+    font-size: 0.72rem;
+  }
+
+  .calendar-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .calendar-chip {
+    width: 100%;
+    text-align: center;
+  }
+
+  .calendar-toggle-group {
+    width: 100%;
+  }
+
+  .calendar-toggle {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .calendar-frame-wrap {
+    min-height: 320px;
+  }
+
+  iframe {
+    min-height: 320px;
+  }
+
+  .calendar-footer {
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.68rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 400px) {
+  .hero-title {
+    font-size: 1.25rem;
+  }
+
+  .brand-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .calendar-frame-wrap {
+    min-height: 280px;
+  }
+
+  iframe {
+    min-height: 280px;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  .shell {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: none;
+  }
+
+  .calendar-toggle-group {
+    display: none;
+  }
+
+  .calendar-footer a {
+    color: #000;
+  }
+}
