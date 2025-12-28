@@ -1,12 +1,6 @@
-
-body {
-    background: red !important;
-}
-/* ============================================
-   CSS Variables & Reset
-   ============================================ */
+/* Base reset & variables */
 :root {
-    --bg: #0f172a;
+    --bg: #020617;
     --bg-elevated: #020617;
     --accent: #38bdf8;
     --accent-soft: rgba(56, 189, 248, 0.12);
@@ -14,7 +8,7 @@ body {
     --text-muted: #9ca3af;
     --border-subtle: #1f2937;
     --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
-    --radius-lg: 16px;
+    --radius-lg: 18px;
     --radius-full: 999px;
 }
 
@@ -25,386 +19,143 @@ body {
 }
 
 body {
-    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: radial-gradient(circle at top, #1d283a 0, #020617 55%, #000 100%);
+    font-family: system-ui, -apple-system, 
+        Courier,
+        "Courier New"
+        BlinkMacSystemFont, 
+        "Segoe UI", 
+        sans-serif, 
+        "Helvetica Neue", 
+        Arial, 
+        "Georgia", 
+        Times,
+        "Times New Roman", 
+        serif, 
+        "Trebuchet MS", 
+        "Gill Sans";
+    background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
     color: var(--text-main);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    padding: 32px 16px;
 }
 
-/* ============================================
-   Main Shell Container
-   ============================================ */
-.shell {
-    width: 100%;
-    max-width: 1120px;
-    background: radial-gradient(circle at top left, #0b1120, #020617);
-    border-radius: 28px;
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    box-shadow: var(--shadow-soft);
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
-    overflow: hidden;
+/* Page wrapper centers content with max width */
+.page-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 40px;
 }
 
-/* ============================================
-   Left Sidebar
-   ============================================ */
-.sidebar {
-    padding: 30px 30px 26px;
-    border-right: 1px solid rgba(15, 23, 42, 0.85);
-    background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 60%),
-                linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+/* Header / Practice name – inverted pyramid */
+.site-header {
+    text-align: center;
+    margin-bottom: 32px;
 }
 
-/* Brand Section */
-.brand-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 18px;
-}
-
-.brand-mark {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.brand-logo {
-    width: 36px;
-    height: 36px;
-    border-radius: 16px;
-    background: radial-gradient(circle at 30% 0, #4ade80 0, #22c55e 28%, #15803d 80%);
-    position: relative;
-    box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.3), 0 18px 45px rgba(22, 163, 74, 0.35);
-}
-
-.brand-logo::before,
-.brand-logo::after {
-    content: "";
-    position: absolute;
-    border-radius: 999px;
-    border: 1.3px solid rgba(15, 23, 42, 0.7);
-}
-
-.brand-logo::before {
-    inset: 7px 6px 6px 6px;
-}
-
-.brand-logo::after {
-    inset: 12px 10px;
-}
-
-.brand-text {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.brand-title {
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    font-size: 1rem;
-}
-
-.brand-subtitle {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.badge {
-    padding: 6px 12px 6px 6px;
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(56, 189, 248, 0.5);
-    background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.28), transparent 65%);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.72rem;
-    color: #e0f2fe;
-}
-
-.badge-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: #22c55e;
-    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
-}
-
-/* Hero Section */
-.hero-text-block {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 4px;
-}
-
-.hero-title {
-    font-size: 1.9rem;
-    line-height: 1.16;
-    letter-spacing: 0.01em;
-}
-
-.hero-highlight {
-    background: linear-gradient(120deg, #38bdf8, #a855f7, #f472b6);
+.practice-name {
+    font-size: 2.8rem;           /* largest */
+    font-style: "Courier New";
+    letter-spacing: 0.04em;
+    /* text-transform: uppercase; */
+    font-weight: 700;
+    color:rgba(36, 228, 103, 0.626);
+    /* background: linear-gradient(120deg, #f97316, #ec4899, #38bdf8); */
+    /* color: transparent; */
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+    margin-bottom: 6px;
 }
 
-.hero-subtitle {
+.motto {
+    font-size: 1.4rem;           /* medium */
+    font-style: "Courier New";
+    color: white;
+    margin-bottom: 5px;
+    letter-spacing: 0.02em;
+}
+
+.tagline {
+    font-style: "Courier New";
+    font-size: 1rem;          /* small */
     color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    max-width: 320px;
 }
 
-/* Action Buttons */
-.action-row {
+/* Founder section – photo & text same height */
+.founder-section {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 8px;
+    gap: 20px;
+    align-items: stretch;  /* make both columns fill the same height */
+    padding: 24px 22px;
+    background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
+                linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 32px;
 }
 
-.btn-primary {
-    padding: 10px 18px;
-    border-radius: var(--radius-full);
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 0.86rem;
-    font-weight: 500;
-    color: #0b1120;
-    background: linear-gradient(135deg, #38bdf8, #22c55e);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 14px 35px rgba(56, 189, 248, 0.35), 0 0 0 1px rgba(15, 23, 42, 0.45);
-    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+/* Left: photo container */
+.founder-photo {
+    flex: 1 1 40%;
+    display: flex;
+    align-items: center;    /* center photo vertically within column */
+    justify-content: center;
 }
 
-.btn-primary:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.05);
-    box-shadow: 0 20px 40px rgba(56, 189, 248, 0.4), 0 0 0 1px rgba(15, 23, 42, 0.6);
+.founder-photo img {
+    width: 300px;
+    height: 300px;
+    border-radius: 24px;
+    object-fit: cover;
+    border: 2px solid rgba(148, 163, 184, 0.6);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+    background: #020617;
 }
 
-.btn-secondary {
-    padding: 9px 16px;
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(148, 163, 184, 0.5);
-    background: rgba(15, 23, 42, 0.72);
-    outline: none;
-    cursor: pointer;
-    font-size: 0.82rem;
+/* Right: bio column – fills same height as photo column */
+.founder-bio {
+    flex: 1 1 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* vertically center text within the same-height area */
+}
+
+.founder-bio h2 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    color: #e5e7eb;
+}
+
+.founder-bio p {
+    font-size: 1rem;
+    line-height: 1.8;
     color: var(--text-main);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    backdrop-filter: blur(16px);
-    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    margin-bottom: 14px;
 }
 
-.btn-secondary:hover {
-    background: rgba(15, 23, 42, 0.95);
-    border-color: rgba(156, 163, 175, 0.9);
-    transform: translateY(-1px);
+.founder-bio p:last-child {
+    margin-bottom: 0;
 }
 
-/* Divider */
-.divider {
-    height: 1px;
-    background: linear-gradient(
-        90deg,
-        rgba(15, 23, 42, 0),
-        rgba(148, 163, 184, 0.4),
-        rgba(15, 23, 42, 0)
-    );
-    margin: 8px 0 4px;
+/* Calendar section */
+.calendar-section {
+    margin-top: 24px;
 }
 
-/* Meta Information */
-.meta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 0.76rem;
-    color: var(--text-muted);
-}
-
-.meta-pill {
-    border-radius: var(--radius-full);
-    padding: 6px 10px;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(31, 41, 55, 0.9);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.meta-pill-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: #38bdf8;
-}
-
-.small-label {
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 0.72rem;
-    color: #6b7280;
-    margin-top: 6px;
-}
-
-.bullet-list {
-    margin-top: 4px;
-    list-style: none;
-    display: grid;
-    gap: 6px;
-    font-size: 0.8rem;
+.calendar-heading {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
     color: #e5e7eb;
 }
 
-.bullet-list li::before {
-    content: "•";
-    color: #38bdf8;
-    margin-right: 6px;
-}
-
-/* ============================================
-   Right Panel (Calendar)
-   ============================================ */
-.calendar-panel {
-    background: radial-gradient(circle at 12% 0, rgba(56, 189, 248, 0.16), transparent 60%),
-                linear-gradient(145deg, #020617, #020617);
-    padding: 22px 22px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
-    overflow: hidden;
-}
-
-.calendar-panel::before {
-    content: "";
-    position: absolute;
-    inset: 18% -40%;
-    background: radial-gradient(circle, rgba(30, 64, 175, 0.2), transparent 60%);
-    opacity: 0.7;
-    pointer-events: none;
-}
-
-.calendar-inner {
-    position: relative;
-    z-index: 1;
-    background: radial-gradient(circle at top, rgba(15, 23, 42, 0.88), #020617);
-    border-radius: 20px;
-    border: 1px solid rgba(15, 23, 42, 0.9);
-    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.9);
-    padding: 14px 14px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Calendar Header */
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6px;
-    padding: 2px 2px 3px 4px;
-}
-
-.calendar-title-block {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.calendar-title {
-    font-size: 0.92rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.calendar-title span.label-pill {
-    font-size: 0.7rem;
-    padding: 3px 8px;
-    border-radius: 999px;
-    background: rgba(22, 163, 74, 0.16);
-    border: 1px solid rgba(22, 163, 74, 0.4);
-    color: #bbf7d0;
-}
-
-.calendar-subtitle {
-    font-size: 0.78rem;
-    color: #9ca3af;
-}
-
-.calendar-controls {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.calendar-chip {
-    font-size: 0.7rem;
-    padding: 5px 9px;
-    border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.5);
-    background: rgba(15, 23, 42, 0.9);
-    color: #e5e7eb;
-}
-
-.calendar-toggle-group {
-    display: inline-flex;
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(148, 163, 184, 0.6);
-    overflow: hidden;
-    background: rgba(15, 23, 42, 0.9);
-}
-
-.calendar-toggle {
-    padding: 4px 9px;
-    font-size: 0.72rem;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background: transparent;
-    color: #9ca3af;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.calendar-toggle.active {
-    background: rgba(148, 163, 184, 0.14);
-    color: #e5e7eb;
-}
-
-/* Calendar Frame */
 .calendar-frame-wrap {
-    border-radius: 16px;
+    width: 100%;
+    border-radius: 18px;
     overflow: hidden;
-    border: 1px solid rgba(31, 41, 55, 0.95);
+    border: 1px solid rgba(31, 41, 55, 0.9);
     background: #020617;
     position: relative;
-    min-height: 420px;
+    min-height: 520px;
+    box-shadow: var(--shadow-soft);
 }
 
 .calendar-placeholder {
@@ -413,67 +164,59 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.86rem;
-    color: #6b7280;
-    background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
+    font-size: 0.95rem;
+    color: #9ca3af;
+    background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), #020617);
     text-align: center;
-    padding: 16px;
-    transition: opacity 0.3s ease;
+    padding: 24px;
     flex-direction: column;
-    gap: 12px;
 }
 
 iframe {
     width: 100%;
     height: 100%;
-    min-height: 420px;
+    min-height: 520px;
     border: 0;
 }
 
-/* Calendar Footer */
-.calendar-footer {
-    font-size: 0.72rem;
-    color: #9ca3af;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 0 2px;
-    flex-wrap: wrap;
+.calendar-footnote {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    text-align: right;
 }
 
-.calendar-footer a {
+.calendar-footnote a {
     color: #7dd3fc;
     text-decoration: none;
 }
 
-.calendar-footer a:hover {
+.calendar-footnote a:hover {
     text-decoration: underline;
 }
 
-.calendar-footer code {
-    background: rgba(15, 23, 42, 0.9);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.7rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .shell {
-        grid-template-columns: 1fr;
+/* Responsive */
+@media (max-width: 720px) {
+    .founder-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
-    .sidebar {
-        border-right: none;
-        border-bottom: 1px solid rgba(15, 23, 42, 0.85);
+    .founder-photo {
+        margin-bottom: 16px;
     }
 
-    .hero-title {
-        font-size: 1.5rem;
+    .founder-photo img {
+        width: 150px;
+        height: 150px;
     }
 
-    body {
-        padding: 16px 8px;
+    .practice-name {
+        font-size: 2.1rem;
+    }
+
+    .motto {
+        font-size: 1.1rem;
     }
 }

@@ -2,115 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Schedule Hub</title>
+    <title>Funny As F*** Therapy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Link to external CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="shell">
-        <!-- Left Sidebar -->
-        <aside class="sidebar">
-            <!-- Brand -->
-            <div class="brand-row">
-                <div class="brand-mark">
-                    <div class="brand-logo"></div>
-                    <div class="brand-text">
-                        <div class="brand-title">Schedule Hub</div>
-                        <div class="brand-subtitle">Calendar</div>
-                    </div>
-                </div>
-                <div class="badge">
-                    <span class="badge-dot"></span>
-                    Live
-                </div>
-            </div>
+    <div class="page-wrapper">
+        <!-- Practice Name -->
+        <header class="site-header">
+            <h1 class="practice-name">Funny As F*** Therapy</h1>
+            <p class="motto">Serious healing. Seriously funny.</p>
+            <p class="motto">Because laughter is the best medicine.</p>
+        </header>
 
-            <!-- Hero -->
-            <div class="hero-text-block">
-                <h1 class="hero-title">
-                    Your <span class="hero-highlight">Schedule</span> at a Glance
-                </h1>
-                <p class="hero-subtitle">
-                    Stay organized with your embedded Google Calendar. View events, manage your time, and never miss a beat.
+        <!-- Founder Section -->
+        <section class="founder-section">
+            <div class="founder-photo">
+                <!-- Replace this placeholder image later with a real one -->
+                <img src="assets/images/founder.png" alt="Founder photo">
+            </div>
+            <div class="founder-bio">
+                <h2>Meet the Founder</h2>
+                
+                <p>
+                    At Funny As F*** Therapy, we believe that laughter and honesty can coexist with deep, meaningful work.
+                </p>
+                
+                <p>
+                    Our founder blends sharp clinical skills with irreverent humor to help you feel seen, challenged, and safe enough to be your real self.
+                </p>
+                
+                <p>
+                    Sessions are designed for people who are tired of sugar-coating everything and are ready to talk about the hard stuff with a therapist who can handle it — and maybe even crack a joke when you need it most.
                 </p>
             </div>
+        </section>
 
-            <!-- Actions -->
-            <div class="action-row">
-                <button class="btn-primary" onclick="scrollToCalendar()">
-                    📅 View Calendar
-                </button>
-                <button class="btn-secondary" onclick="showInstructions()">
-                    ℹ️ How to Setup
-                </button>
+        <!-- Calendar Section -->
+        <main class="calendar-section">
+            <h2 class="calendar-heading">Schedule & Availability</h2>
+            <div class="calendar-frame-wrap" id="calendarFrame">
+                <div class="calendar-placeholder" id="calendarPlaceholder">
+                <iframe 
+                  src="https://calendar.google.com/calendar/embed?src=ad9a6a9c5e34bf531e30cc7627cdad24c4122ec6faba570f77e3a2b58ba84c30%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no">
+                </iframe>
+                  style="display: none;">
+                </iframe>
             </div>
-
-            <!-- Divider -->
-            <div class="divider"></div>
-
-            <!-- Meta Info -->
-            <div class="meta-row">
-                <span class="meta-pill">
-                    <span class="meta-pill-dot"></span>
-                    Auto-sync
-                </span>
-                <span class="meta-pill">
-                    <span class="meta-pill-dot"></span>
-                    Responsive
-                </span>
-            </div>
-
-            <!-- Features -->
-            <div>
-                <div class="small-label">Features</div>
-                <ul class="bullet-list">
-                    <li>Real-time Google Calendar embed</li>
-                    <li>Week & Month view toggle</li>
-                    <li>Mobile-friendly design</li>
-                    <li>Easy customization</li>
-                </ul>
-            </div>
-        </aside>
-
-        <!-- Right Panel: Calendar -->
-        <main class="calendar-panel">
-            <div class="calendar-inner">
-                <!-- Calendar Header -->
-                <div class="calendar-header">
-                    <div class="calendar-title-block">
-                        <div class="calendar-title">
-                            My Calendar
-                            <span class="label-pill">Google</span>
-                        </div>
-                        <div class="calendar-subtitle">Synced in real-time</div>
-                    </div>
-                    <div class="calendar-controls">
-                        <span class="calendar-chip">2025</span>
-                        <div class="calendar-toggle-group">
-                            <button class="calendar-toggle active" data-view="week">Week</button>
-                            <button class="calendar-toggle" data-view="month">Month</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Calendar Frame -->
-                <div class="calendar-frame-wrap" id="calendarFrame">
-                    <div class="calendar-placeholder" id="calendarPlaceholder">
-                        <div>⚠️ Calendar not configured yet</div>
-                        <div style="font-size: 0.75rem; max-width: 280px; line-height: 1.5;">
-                            Click "How to Setup" to learn how to add your Google Calendar embed URL.
-                        </div>
-                    </div>
-                    <iframe id="calendarIframe" style="display: none;"></iframe>
-                </div>
-
-                <!-- Calendar Footer -->
-                <div class="calendar-footer">
-                    <span>Powered by <a href="https://calendar.google.com" target="_blank">Google Calendar</a></span>
-                    <span>Last synced: <code>Just now</code></span>
-                </div>
-            </div>
+            <p class="calendar-footnote">
+                Powered by <a href="https://calendar.google.com" target="_blank">Google Calendar</a>
+            </p>
         </main>
     </div>
 
@@ -128,7 +70,7 @@
             showCalendars: 0,
             showTz: 0,
             mode: 'WEEK',
-            height: 420,
+            height: 600,
             wkst: 1,
             bgcolor: '%23020617',
             color: '%2338bdf8'
@@ -157,52 +99,8 @@
             }
         }
 
-        function switchCalendarView(mode) {
-            const iframe = document.getElementById('calendarIframe');
-            if (!CALENDAR_EMBED_URL) return;
-
-            CALENDAR_CONFIG.mode = mode.toUpperCase();
-            const newUrl = buildCalendarUrl(CALENDAR_EMBED_URL, CALENDAR_CONFIG);
-            iframe.src = newUrl;
-
-            document.querySelectorAll('.calendar-toggle').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-view="${mode}"]`).classList.add('active');
-        }
-
-        function scrollToCalendar() {
-            document.querySelector('.calendar-panel').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-
-        function showInstructions() {
-            alert(`🗓 HOW TO ADD YOUR GOOGLE CALENDAR:
-
-1. Go to Google Calendar (calendar.google.com)
-2. Click the gear icon ⚙ → Settings
-3. Select your calendar from the left sidebar
-4. Scroll to "Integrate calendar"
-5. Copy the "Embed code" (it's an <iframe> tag)
-6. Extract the URL from src="..."
-7. Paste it into CALENDAR_EMBED_URL in this file's <script> section
-8. Save and refresh!
-
-Example URL format:
-https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID`);
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             initCalendar();
-
-            document.querySelectorAll('.calendar-toggle').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const view = e.target.dataset.view;
-                    switchCalendarView(view);
-                });
-            });
         });
     </script>
 </body>
